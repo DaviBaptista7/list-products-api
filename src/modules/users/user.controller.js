@@ -1,5 +1,5 @@
-import { ensureAuth } from "../../middlewares/auth"
-import { makeUserService } from "./user.service"
+import { ensureAuth } from "../../middlewares/auth.js"
+import { makeUserService } from "./user.service.js"
 
 export const makeUserController = () => {
     const service = makeUserService()
@@ -9,7 +9,7 @@ export const makeUserController = () => {
             const { name, email, password } = request.body
 
             const user = await service.register({ name, email, password })
-            
+
             return response.status(201).json({
                 id: user.id,
                 name: user.name,
@@ -22,8 +22,8 @@ export const makeUserController = () => {
 
     const login = async (request, response, next) => {
         try {
-            const { email, passaword } = request.body
-            const tokens = await service.login({ email, passaword })
+            const { email, password } = request.body
+            const tokens = await service.login({ email, password })
 
             return response.json(tokens)
         } catch (error) {

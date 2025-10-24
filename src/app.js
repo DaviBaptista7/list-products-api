@@ -3,6 +3,8 @@ import helmet from "helmet"
 import cors from "cors"
 import rateLimit from "express-rate-limit"
 import { env } from "./config/env.js"
+import { authRouter } from "./routes/auth.routes.js"
+import { errorHandler } from "./middlewares/errorHandler.js"
 
 export const createApp = () => {
     const app = express()
@@ -16,5 +18,9 @@ export const createApp = () => {
         response.json({ ok:true})
 
     })
+
+app.use("/auth", authRouter())
+
+    app.use(errorHandler)
     return app
 }

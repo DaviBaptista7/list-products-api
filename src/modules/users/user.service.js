@@ -1,6 +1,9 @@
-import { env } from "../../config/env"
-import { HttpError } from "../../utils/httpError"
-import { makeUserRepoMemory } from "./user.repo.memory"
+import bcrypt  from "bcryptjs"
+import jwt from "jsonwebtoken"
+
+import { env } from "../../config/env.js"
+import { HttpError } from "../../utils/httpError.js"
+import { makeUserRepoMemory } from "./user.repo.memory.js"
 
 export const makeUserService = () => {
     const repo = makeUserRepoMemory()
@@ -21,7 +24,7 @@ export const makeUserService = () => {
         const user = await repo.findByEmail(email)
 
         if (!user) {
-            throw new HttpError("User hnot found", 404, "USER_NOT_FOUND")
+            throw new HttpError("User not found", 404, "USER_NOT_FOUND")
         }
 
         const ok = await bcrypt.compare(password, user.passwordHash)
