@@ -11,15 +11,15 @@ export const makeProductService = () => {
             throw new HttpError(
                 "Invalid product payload",
                 400,
-                "BAD-REQUEST"
+                "BAD_REQUEST"
             )
         }
         return repo.create({ name, price, createBy: userId })
     }
-    const list = async ({ q, order = "id", dir = "ASC", page = 1, Limit = 10 }) => {
+    const list = async ({ q, order = "id", dir = "ASC", page = 1, limit = 10 }) => {
         if (!sortable.includes(order)) order = "id"
 
-        if (!dirOk.includes(Streing(dir).toUpperCase())) dir = "ASC"
+        if (!dirOk.includes(String(dir).toUpperCase())) dir = "ASC"
         return repo.findAll({
             q, order, dir, page: Number(page), limit: Number(limit)
         })
@@ -37,8 +37,8 @@ export const makeProductService = () => {
         return found
     }
 
-    const patch = async ({ id,data }) => {
-        const updated = await repo.update({ id,data })
+    const patch = async ({ id, data }) => {
+        const updated = await repo.update({ id, data })
 
         if (!updated) {
             throw new HttpError(
@@ -61,5 +61,5 @@ export const makeProductService = () => {
         }
     }
 
-    return {create,list,get,patch,remove}
+    return { create, list, get, patch, remove }
 }

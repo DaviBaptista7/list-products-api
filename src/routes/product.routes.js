@@ -1,8 +1,9 @@
 
 import { Router } from "express"
-import { makeProductController } from "../modules/products/product.controller"
-import { createProductSchema, listProductsQuery, patchProductSchema, productIdParams } from "../modules/products/product.shemas"
-import { ensureAuth } from "../middlewares/auth"
+import { makeProductController } from "../modules/products/product.controller.js"
+import { createProductSchema, listProductsQuery, patchProductSchema, productIdParams } from "../modules/products/product.shemas.js"
+import { ensureAuth } from "../middlewares/auth.js"
+import { validate } from "../middlewares/validate.js"
 
 export const ProductRouter = () => {
     const r = Router()
