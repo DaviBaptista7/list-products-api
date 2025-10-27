@@ -4,11 +4,12 @@ export const createProductSchema = z. object({
     name: z.string().min(1, "name is required"),
     price: z.number().nonnegative("price must be >= 0")
 })
+
 export const listProductsQuery = z.object({
     q: z.string().optional(),
     order: z.enum(["id","name", "price"]).optional(),
     dir: z.enum(["ASC", "DECS"]).optional(),
-    page: z.coerce().int().positive().optional(),
+    page: z.coerce().number().int().positive().optional(),
     page: z.coerce().int().positive().max(100).optional(),
 })
 
@@ -18,6 +19,6 @@ export const productIdParams = z.object({
 export const patchProductSchema = z.object({
     name: z.string().min(1, "name is resquired"),
     price: z.number().monnegative("price must be >= 0")
-}).refine(obj =>
+}).partial().refine(obj =>
     Object.keys(obj).length > 0, {error: "No fields to update"}
 )
