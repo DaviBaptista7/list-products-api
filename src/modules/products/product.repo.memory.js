@@ -1,6 +1,6 @@
 let items = []
 
-export const makeUserRepoMemory = () => {
+export const makeProductRepoMemory = () => {
     const create = async ({ name, price, createdBy}) => {
        const id = items.length + 1
        const obj = { id, name, price, createdBy }
